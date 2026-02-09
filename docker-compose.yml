@@ -1,0 +1,44 @@
+services:
+  mysqldb:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Wikipediapassword
+      MYSQL_DATABASE: Wikipediadb
+      MYSQL_USER: Wikipediauser
+      MYSQL_PASSWORD: Wikipediauserpassword
+    volumes:
+      - mysqldb-volume:/var/lib/mysql
+    ports:
+      - "3307:3306"
+
+  postgresdb:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: Wikipediauserpassword
+      POSTGRES_USER: Wikipediauser
+      POSTGRES_DB: Wikipediadb
+    volumes:
+      - postgresdb-volume:/var/lib/postgresql/data
+    ports:
+      - "5435:5432"
+
+      
+  sqlserverdb:
+    image: mcr.microsoft.com/mssql/server
+    restart: always
+    environment:
+      ACCEPT_EULA: 'Y'
+      MSSQL_SA_PASSWORD: 'Wikipediapassword_01'
+
+    ports:
+      - 1435:1433
+
+    volumes:
+      - sqlserverdb-volume:/var/opt/mssql
+
+volumes:
+  mysqldb-volume: {}
+  postgresdb-volume: {}
+  sqlserverdb-volume: {}
